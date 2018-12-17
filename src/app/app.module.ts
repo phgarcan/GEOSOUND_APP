@@ -19,6 +19,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-interceptor';
 
+import { Media } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
 @NgModule({
   declarations: [
     MyApp,
@@ -48,7 +50,9 @@ import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-inte
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorProvider, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorProvider, multi: true },
+    Media,
+    File
   ]
 })
 export class AppModule {}
