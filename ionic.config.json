@@ -1,5 +1,7 @@
 {
   "name": "geosound",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }
