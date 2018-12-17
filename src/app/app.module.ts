@@ -14,9 +14,10 @@ import { LoginPage } from '../pages/login/login';
 
 import { AuthProvider } from '../providers/auth/auth';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { IonicStorageModule } from '@ionic/storage';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorProvider, multi: true }
   ]
 })
 export class AppModule {}

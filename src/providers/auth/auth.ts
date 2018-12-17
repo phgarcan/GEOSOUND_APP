@@ -10,7 +10,9 @@ import { User } from '../../models/user';
 
 import { Storage } from '@ionic/storage';
 
-const AUTH_URL = "https://shielded-fjord-89009.herokuapp.com/login"
+import { config } from '../../app/config';
+
+const AUTH_URL = `${config.apiUrl}/login`
 
 /**
  * Authentication service for login/logout.
@@ -25,6 +27,11 @@ export class AuthProvider {
     this.authSource = new ReplaySubject(1);
     this.authSource.next(undefined);
     this.auth$ = this.authSource.asObservable();
+
+    this.storage.get('auth').then(auth => {
+      // Push the loaded value into the observable stream.
+      this.authSource.next(auth);
+    });
   }
 
   isAuthenticated(): Observable<boolean> {
@@ -41,7 +48,7 @@ export class AuthProvider {
 
   logIn(authRequest: AuthRequest): Observable<User> {
 
-    
+
     return this.http.post<AuthResponse>(AUTH_URL, authRequest).pipe(
       delayWhen(auth => {
         return this.saveAuth(auth);
@@ -56,6 +63,7 @@ export class AuthProvider {
 
   logOut() {
     this.authSource.next(null);
+    this.storage.remove('auth');
     console.log('User logged out');
   }
 
