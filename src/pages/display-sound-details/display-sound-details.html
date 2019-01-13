@@ -1,0 +1,61 @@
+<!--
+  Generated template for the DisplaySoundDetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ sound.id }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4><button ion-button icon-only color="danger">
+          <ion-icon name="trash"></ion-icon>
+        </button></ion-col>
+
+      <ion-col col-4><button ion-button icon-start *ngIf="auth.user.id==sound.user">
+          <ion-icon name="create"></ion-icon>Editer
+        </button></ion-col>
+
+      <ion-col col-4><button ion-button icon-only color="dark">
+          <ion-icon name="close"></ion-icon>
+        </button></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12>{{sound.description}}</ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12>{{sound.quality}}</ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12>Par {{user.name}}</ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12>
+        <ion-badge color="secondary" *ngFor="let category of sound.categories">{{ category }}</ion-badge>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12>
+
+        <button ion-button icon-start>
+          <ion-icon name="play"></ion-icon>Play
+        </button>
+
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

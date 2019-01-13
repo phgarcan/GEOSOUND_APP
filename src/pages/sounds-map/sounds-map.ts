@@ -1,28 +1,22 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NavController, NavParams } from 'ionic-angular';
 import { latLng, Map, MapOptions, marker, Marker, tileLayer } from 'leaflet';
 import { config } from '../../app/config';
-import { HttpClient } from '@angular/common/http';
+import { DisplaySoundDetailsPage } from '../display-sound-details/display-sound-details';
 
-
-const CATEGORY_URL = `${config.apiUrl}/api/sound`
-
-/**
- * Generated class for the SoundsMapPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+const SOUND_URL = `${config.apiUrl}/api/sound`
 
 @Component({
   selector: 'page-sounds-map',
   templateUrl: 'sounds-map.html'
 })
+
 export class SoundsMapPage {
   mapOptions: MapOptions
   map: Map
-  mapMarkers: Marker[];
+  mapMarkers: Marker[]
 
   /**
    * 
@@ -37,7 +31,9 @@ export class SoundsMapPage {
     public navParams: NavParams) {
 
     const tileLayerUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    const tileLayerOptions = { maxZoom: 18 };
+    
+    const tileLayerOptions = { maxZoom: 13 };
+
     this.mapOptions = {
       layers: [
         tileLayer(tileLayerUrl, tileLayerOptions)
@@ -46,28 +42,26 @@ export class SoundsMapPage {
       center: latLng(46.778186, 6.641524)
     };
 
-    this.http.get(CATEGORY_URL + "?page=1&pageSize=100").subscribe((sounds: any) => {
+    this.http.get(SOUND_URL + "?page=1&pageSize=100").subscribe((sounds: any) => {
       console.log(`sound loaded`, sounds);
 
       this.mapMarkers = []
 
       sounds.forEach(sound => {
         console.log(sound.coordinate.loc.x)
+        
         let soundMarker = marker([sound.coordinate.loc.x, sound.coordinate.loc.y])
-        soundMarker.bindPopup(`
-          <p>`+ sound.description +`</p>
-          <p>Quality : `+ sound.quality+` </p>
-        `)
 
-        this.mapMarkers.push(soundMarker)          
-          
+        soundMarker.on('click', (e)=>{
+          this.showSoundDetails(sound._id)
+        })
+
+        this.mapMarkers.push(soundMarker)
+
         console.log(this.mapMarkers)
       });
 
-
     });
-
-
 
   }
 
@@ -95,6 +89,10 @@ export class SoundsMapPage {
       console.warn(`Could not retrieve user position because: ${err.message}`);
     }
 
+  }
+
+  showSoundDetails(soundId: string) {
+    this.navCtrl.push(DisplaySoundDetailsPage, { id: soundId });
   }
 
 }

@@ -15,6 +15,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { MyApp } from './app.component';
 import { Geolocation } from '@ionic-native/geolocation';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { DisplaySoundDetailsPage } from '../pages/display-sound-details/display-sound-details';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     BrowseSoundsPage,
     RecordSoundPage,
     SoundsMapPage,
-    LoginPage
+    LoginPage,
+    DisplaySoundDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     BrowseSoundsPage,
     RecordSoundPage,
     SoundsMapPage,
-    LoginPage
+    LoginPage,
+    DisplaySoundDetailsPage
   ],
   providers: [
     StatusBar,
