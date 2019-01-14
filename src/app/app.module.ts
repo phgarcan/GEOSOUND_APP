@@ -21,6 +21,9 @@ import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-inte
 
 import { Media } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
+import {Register} from "../pages/register/register";
+import {RegistrationProvider} from "../providers/register/register";
+import {ValidateEqualDirective} from "../pages/register/passwordValidatorDirective";
 @NgModule({
   declarations: [
     MyApp,
@@ -28,7 +31,9 @@ import { File } from '@ionic-native/file';
     BrowseSoundsPage,
     RecordSoundPage,
     SoundsMapPage,
-    LoginPage
+    LoginPage,
+    Register,
+    ValidateEqualDirective,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,8 @@ import { File } from '@ionic-native/file';
     BrowseSoundsPage,
     RecordSoundPage,
     SoundsMapPage,
-    LoginPage
+    LoginPage,
+    Register,
   ],
   providers: [
     StatusBar,
@@ -52,7 +58,8 @@ import { File } from '@ionic-native/file';
     AuthProvider,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorProvider, multi: true },
     Media,
-    File
+    File,
+    RegistrationProvider
   ]
 })
 export class AppModule {}
