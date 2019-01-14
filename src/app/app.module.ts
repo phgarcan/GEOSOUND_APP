@@ -17,6 +17,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { DisplaySoundDetailsPage } from '../pages/display-sound-details/display-sound-details';
 
+import { Media } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
 @NgModule({
   declarations: [
     MyApp,
@@ -50,7 +52,9 @@ import { DisplaySoundDetailsPage } from '../pages/display-sound-details/display-
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorProvider, multi: true },
-    Geolocation
+    Geolocation,
+    Media,
+    File
   ]
 })
 export class AppModule {}
