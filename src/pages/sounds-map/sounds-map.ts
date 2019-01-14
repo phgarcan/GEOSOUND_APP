@@ -38,7 +38,7 @@ export class SoundsMapPage {
       layers: [
         tileLayer(tileLayerUrl, tileLayerOptions)
       ],
-      zoom: 13,
+      zoom: 7,
       center: latLng(46.778186, 6.641524)
     };
 

@@ -16,11 +16,11 @@
 <ion-content padding>
   <ion-grid>
     <ion-row>
-      <ion-col col-4><button ion-button icon-only color="danger">
+      <ion-col col-4><button ion-button icon-only color="danger" *ngIf="auth.id==sound.user">
           <ion-icon name="trash"></ion-icon>
         </button></ion-col>
 
-      <ion-col col-4><button ion-button icon-start *ngIf="auth.user.id==sound.user">
+      <ion-col col-4><button ion-button icon-start *ngIf="auth.id==sound.user">
           <ion-icon name="create"></ion-icon>Editer
         </button></ion-col>
 

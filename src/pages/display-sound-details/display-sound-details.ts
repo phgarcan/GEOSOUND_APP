@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { config } from '../../app/config';
 import { Storage } from '@ionic/storage';
+import { User } from '../../models/user';
+import { Sound } from '../../models/sound';
 
 const SOUND_URL = `${config.apiUrl}/api/sound/`
 const USER_URL = `${config.apiUrl}/api/user/`
@@ -17,9 +19,9 @@ const USER_URL = `${config.apiUrl}/api/user/`
  */
 export class DisplaySoundDetailsPage {
 
-  sound: Object
-  user: Object
-  auth: Object
+  sound: Sound
+  user: User
+  auth: User
 
   /**
    * Constructor
@@ -32,12 +34,13 @@ export class DisplaySoundDetailsPage {
     public http: HttpClient,
     private storage: Storage) {
 
-    this.sound = {}
-    this.user = {}
-    this.auth = {user:{id:0}}
+    this.sound = new Sound()
+    this.user = new User()
+    this.auth = new User()
     
 
     this.storage.get('auth').then(e => {
+      console.log(e)
       this.auth = e.user
     })
 
@@ -45,7 +48,6 @@ export class DisplaySoundDetailsPage {
 
     if (!this.navParams.data.id) {
       throw new Error("No id set for the sound")
-
     }
 
     // Load sound from API
