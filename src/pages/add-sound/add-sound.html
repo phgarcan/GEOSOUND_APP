@@ -1,0 +1,55 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add Sound</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list inset no-lines>
+
+    <ion-item>{{fileName}}</ion-item>
+
+    <ion-item>
+      <ion-label>Catégorie </ion-label>
+      <ion-select [(ngModel)]="form_categories" multiple="true" cancelText="Annuler" okText="Ok">
+        <ion-option value="{{category._id}}" *ngFor="let category of categories">{{ category.name }}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Qualité</ion-label>
+      <ion-select [(ngModel)]="form_quality">
+        <ion-option value="Good">Good</ion-option>
+        <ion-option value="Bad">Bad</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Déscription</ion-label>
+      <ion-input type="text" [(ngModel)]="form_description"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="position==null">
+      <ion-label>Ville</ion-label>
+      <ion-input type="text" [(ngModel)]="form_city"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <button ion-button color="danger" outline large block icon-start (click)="cancelSave()">
+        <ion-icon name="close"></ion-icon>
+        Annuler
+      </button>
+
+      <button ion-button color="primary" large block icon-start (click)="save()">
+        <ion-icon name="save"></ion-icon>
+        Sauver
+      </button>
+
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>
