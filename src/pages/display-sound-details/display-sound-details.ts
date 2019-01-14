@@ -37,15 +37,27 @@ export class DisplaySoundDetailsPage {
     this.sound = new Sound()
     this.user = new User()
     this.auth = new User()
-    
+
 
     this.storage.get('auth').then(e => {
       console.log(e)
       this.auth = e.user
     })
 
-    //console.log(this.navParams.data)
+  }
 
+  /**
+   * 
+   */
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad DisplaySoundDetailsPage');
+  }
+
+
+  /**
+   * Method use when the page is about to enter and become the active page.
+   */
+  ionViewWillEnter() {
     if (!this.navParams.data.id) {
       throw new Error("No id set for the sound")
     }
@@ -62,15 +74,6 @@ export class DisplaySoundDetailsPage {
 
 
     });
-
-
-  }
-
-  /**
-   * 
-   */
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DisplaySoundDetailsPage');
   }
 
 }

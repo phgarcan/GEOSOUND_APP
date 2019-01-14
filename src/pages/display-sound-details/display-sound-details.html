@@ -16,15 +16,15 @@
 <ion-content padding>
   <ion-grid>
     <ion-row>
-      <ion-col col-4><button ion-button icon-only color="danger" *ngIf="auth.id==sound.user">
+      <ion-col col-4><button ion-button icon-only color="danger" *ngIf="auth.id==sound.user" full>
           <ion-icon name="trash"></ion-icon>
         </button></ion-col>
 
-      <ion-col col-4><button ion-button icon-start *ngIf="auth.id==sound.user">
+      <ion-col col-4><button ion-button icon-start *ngIf="auth.id==sound.user" full>
           <ion-icon name="create"></ion-icon>Editer
         </button></ion-col>
 
-      <ion-col col-4><button ion-button icon-only color="dark">
+      <ion-col col-4><button ion-button icon-only color="dark" full>
           <ion-icon name="close"></ion-icon>
         </button></ion-col>
     </ion-row>
@@ -50,7 +50,7 @@
     <ion-row>
       <ion-col col-12>
 
-        <button ion-button icon-start>
+        <button ion-button icon-start full>
           <ion-icon name="play"></ion-icon>Play
         </button>
 
