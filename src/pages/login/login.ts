@@ -5,6 +5,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { AuthRequest } from '../../models/auth-request';
 import { AuthProvider } from '../../providers/auth/auth';
 import { HomePage } from '../home/home';
+import{Register} from "../register/register";
 
 /**
  * Login page.
@@ -17,6 +18,7 @@ import { HomePage } from '../home/home';
 })
 export class LoginPage {
 
+  registerPage = Register;
   /**
    * This authentication request object will be updated when the user
    * edits the login form. It will then be sent to the API.
@@ -61,4 +63,5 @@ export class LoginPage {
       console.warn(`Authentication failed: ${err.message}`);
     });
   }
+
 }

@@ -19,6 +19,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-interceptor';
 
+import { Media } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
+import {Register} from "../pages/register/register";
+import {RegistrationProvider} from "../providers/register/register";
+import {ValidateEqualDirective} from "../pages/register/passwordValidatorDirective";
 @NgModule({
   declarations: [
     MyApp,
@@ -26,7 +31,9 @@ import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-inte
     BrowseSoundsPage,
     RecordSoundPage,
     SoundsMapPage,
-    LoginPage
+    LoginPage,
+    Register,
+    ValidateEqualDirective,
   ],
   imports: [
     BrowserModule,
@@ -41,14 +48,18 @@ import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-inte
     BrowseSoundsPage,
     RecordSoundPage,
     SoundsMapPage,
-    LoginPage
+    LoginPage,
+    Register,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorProvider, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorProvider, multi: true },
+    Media,
+    File,
+    RegistrationProvider
   ]
 })
 export class AppModule {}
