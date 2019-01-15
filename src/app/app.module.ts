@@ -17,6 +17,11 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { DisplaySoundDetailsPage } from '../pages/display-sound-details/display-sound-details';
 
+import { Media } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
+import {Register} from "../pages/register/register";
+import {RegistrationProvider} from "../providers/register/register";
+import {ValidateEqualDirective} from "../pages/register/passwordValidatorDirective";
 @NgModule({
   declarations: [
     MyApp,
@@ -26,6 +31,8 @@ import { DisplaySoundDetailsPage } from '../pages/display-sound-details/display-
     SoundsMapPage,
     LoginPage,
     DisplaySoundDetailsPage
+    Register,
+    ValidateEqualDirective,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +50,7 @@ import { DisplaySoundDetailsPage } from '../pages/display-sound-details/display-
     SoundsMapPage,
     LoginPage,
     DisplaySoundDetailsPage
+    Register,
   ],
   providers: [
     StatusBar,
@@ -51,6 +59,9 @@ import { DisplaySoundDetailsPage } from '../pages/display-sound-details/display-
     AuthProvider,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorProvider, multi: true },
     Geolocation
+    Media,
+    File,
+    RegistrationProvider
   ]
 })
 export class AppModule {}
