@@ -7,6 +7,7 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { config } from '../../app/config';
 import { Category } from '../../models/category';
+import { Sound } from '../../models/sound';
 
 const CATEGORY_URL = `${config.apiUrl}/api/category`
 const SOUND_URL = `${config.apiUrl}/api/sound`
@@ -77,48 +78,22 @@ export class AddSoundPage {
    * Save a sound on the API
    */
   async save() {
-    console.log(this.filePath)
-    console.log(this.form_description, this.form_quality, this.form_categories)
+
+
 
     if (this.platform.is('ios') || this.platform.is('android')) {
       this.base64.encodeFile(this.filePath).then(async (base64File: string) => {
 
-        let city = ''
+        // GEOCODE POSITION
+        let city = this.form_city
 
-
-        // Geocode the position with the city name
         if (this.position != null) {
-          try {
-            city = await this.nativeGeocoder.reverseGeocode(this.position.coords.latitude, this.position.coords.longitude, {
-              useLocale: true,
-              maxResults: 1
-            })[0]
-            console.log(city)
-          } catch (err) {
-            console.log(err)
-            return
-          }
-        }
-        // Geocode the position with the long and lat
-        else {
-          city = this.form_city
-          try {
-            let coordinate = await this.nativeGeocoder.forwardGeocode(this.form_city, {
-              useLocale: true,
-              maxResults: 1
-            })
-          
-                        
-            this.position = { coords: { latitude: coordinate[0].latitude, longitude: coordinate[0].longitude } }
-          
-          } catch (err) {
-            console.log(err)
-            return
-          }
+          city = await Sound.getCityFromCoords(this.position.coords.latitude, this.position.coords.longitude)
+        } else {
+          this.position = await Sound.geocodeCity(this.form_city)
         }
 
-        console.log(this.position)
-
+        // CREATE SOUND IN JSON
         let soundToSave = {
           sound: base64File,
           categories: this.form_categories,
@@ -127,6 +102,7 @@ export class AddSoundPage {
           quality: this.form_quality
         }
 
+        // REQUEST TO SERVER
         this.http.post(SOUND_URL, soundToSave).subscribe(response => {
           console.log(response)
           this.navCtrl.pop()
@@ -147,7 +123,11 @@ export class AddSoundPage {
    * 
    */
   cancelSave() {
-    this.navCtrl.pop()
+    if (this.navCtrl.canGoBack()) {
+      this.navCtrl.pop().catch((error) => { console.log(error) })
+    }
+
+
   }
 
 }

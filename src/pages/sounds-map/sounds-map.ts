@@ -44,19 +44,6 @@ export class SoundsMapPage {
       center: latLng(46.778186, 6.641524)
     };
 
-    this.http.get(SOUND_URL + "?page=1&pageSize=100").subscribe((sounds: any) => {
-      console.log(`sound loaded`, sounds);
-
-      this.sounds = sounds
-
-      this.mapMarkers = []
-
-      sounds.forEach(sound => {
-        this.mapMarkers.push(this.createSoundMarker(sound))
-      });
-
-    });
-
   }
 
   /**
@@ -100,6 +87,24 @@ export class SoundsMapPage {
       console.warn(`Could not retrieve user position because: ${err.message}`);
     }
 
+  }
+
+  /**
+   * 
+   */
+  ionViewWillEnter(){
+    this.http.get(SOUND_URL + "?page=1&pageSize=1000").subscribe((sounds: any) => {
+      console.log(`sound loaded`, sounds);
+
+      this.sounds = sounds
+
+      this.mapMarkers = []
+
+      sounds.forEach(sound => {
+        this.mapMarkers.push(this.createSoundMarker(sound))
+      });
+
+    });
   }
 
   /**
