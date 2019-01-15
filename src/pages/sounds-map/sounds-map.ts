@@ -5,6 +5,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { latLng, Map, MapOptions, marker, Marker, tileLayer } from 'leaflet';
 import { config } from '../../app/config';
 import { DisplaySoundDetailsPage } from '../display-sound-details/display-sound-details';
+import { Sound } from '../../models/sound';
 
 const SOUND_URL = `${config.apiUrl}/api/sound`
 
@@ -17,6 +18,7 @@ export class SoundsMapPage {
   mapOptions: MapOptions
   map: Map
   mapMarkers: Marker[]
+  sounds: Array<Sound>
 
   /**
    * 
@@ -31,7 +33,7 @@ export class SoundsMapPage {
     public navParams: NavParams) {
 
     const tileLayerUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    
+
     const tileLayerOptions = { maxZoom: 13 };
 
     this.mapOptions = {
@@ -41,27 +43,6 @@ export class SoundsMapPage {
       zoom: 7,
       center: latLng(46.778186, 6.641524)
     };
-
-    this.http.get(SOUND_URL + "?page=1&pageSize=100").subscribe((sounds: any) => {
-      console.log(`sound loaded`, sounds);
-
-      this.mapMarkers = []
-
-      sounds.forEach(sound => {
-        console.log(sound.coordinate.loc.x)
-        
-        let soundMarker = marker([sound.coordinate.loc.x, sound.coordinate.loc.y])
-
-        soundMarker.on('click', (e)=>{
-          this.showSoundDetails(sound._id)
-        })
-
-        this.mapMarkers.push(soundMarker)
-
-        console.log(this.mapMarkers)
-      });
-
-    });
 
   }
 
@@ -74,6 +55,23 @@ export class SoundsMapPage {
   }
 
   /**
+   * can search sound on the map
+   * @param e 
+   */
+  search(e: any) {
+    let searchString = e.target.value
+
+    let filteredSounds = this.sounds.filter((sound) => {
+      return sound.description.includes(searchString)
+    })
+
+    this.mapMarkers = []
+    filteredSounds.forEach((sound) => {
+      this.mapMarkers.push(this.createSoundMarker(sound))
+    })
+  }
+
+  /**
    * 
    */
   async ionViewDidLoad() {
@@ -82,7 +80,7 @@ export class SoundsMapPage {
     try {
       const position = await this.geolocation.getCurrentPosition();
       const coords = position.coords;
-      this.map.setView(latLng(coords.latitude, coords.longitude), 13)
+      this.map.setView(latLng(coords.latitude, coords.longitude), 10)
 
       console.log(`User is at ${coords.longitude}, ${coords.latitude}`);
     } catch (err) {
@@ -91,8 +89,44 @@ export class SoundsMapPage {
 
   }
 
+  /**
+   * 
+   */
+  ionViewWillEnter(){
+    this.http.get(SOUND_URL + "?page=1&pageSize=1000").subscribe((sounds: any) => {
+      console.log(`sound loaded`, sounds);
+
+      this.sounds = sounds
+
+      this.mapMarkers = []
+
+      sounds.forEach(sound => {
+        this.mapMarkers.push(this.createSoundMarker(sound))
+      });
+
+    });
+  }
+
+  /**
+   * display detailed information on the sound
+   * @param soundId 
+   */
   showSoundDetails(soundId: string) {
     this.navCtrl.push(DisplaySoundDetailsPage, { id: soundId });
+  }
+
+  /**
+   * 
+   * @param sound 
+   */
+  createSoundMarker(sound: any) {
+    let soundMarker = marker([sound.coordinate.loc.x, sound.coordinate.loc.y])
+
+    soundMarker.on('click', (e) => {
+      this.showSoundDetails(sound._id)
+    })
+
+    return soundMarker
   }
 
 }

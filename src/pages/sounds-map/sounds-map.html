@@ -8,5 +8,8 @@
 
 
 <ion-content padding>
+  <div>
+    <ion-input type="text" placeholder="Search" (keyup)='search($event)'></ion-input>
+  </div>
   <div class='map' leaflet [leafletOptions]='mapOptions' (leafletMapReady)='onMapReady($event)' [leafletLayers]='mapMarkers'></div>
 </ion-content>

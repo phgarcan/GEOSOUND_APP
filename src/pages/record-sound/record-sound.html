@@ -1,9 +1,3 @@
-<!--
-  Generated template for the RecordSoundPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -13,18 +7,25 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-    <ion-card-content>
-      <ion-card-title>
-        <button ion-button primary (click)="stopRecord()" *ngIf="recording"><ion-icon name="mic-off"></ion-icon>&nbsp;&nbsp;Stop Record</button>
-        <button ion-button primary (click)="startRecord()" *ngIf="!recording"><ion-icon name="mic"></ion-icon>&nbsp;&nbsp;Start Record</button>
-      </ion-card-title>
-    </ion-card-content>
-  </ion-card>
-  <ion-list>
-    <ion-item *ngFor="let audio of audioList; index as i;">
-      <p>{{audio.filename}}</p>
-      <button ion-button clear item-end large (click)="playAudio(audio.filename, i)"><ion-icon name="play"></ion-icon></button>
+  <ion-list inset no-lines>
+
+    <ion-item><button ion-button color="primary" large block icon-start (click)="stopRecord()" *ngIf="recording">
+        <ion-icon name="mic-off"></ion-icon>
+        STOP
+      </button>
     </ion-item>
+
+    <ion-item><button ion-button color="secondary" large block icon-start (click)="startRecord()" *ngIf="!recording">
+        <ion-icon name="mic"></ion-icon>
+        ENREGISTRER
+      </button>
+    </ion-item>
+
+    <ion-item><button ion-button color="danger" outline large block icon-start (click)="cancelRecord()" *ngIf="recording">
+        <ion-icon name="close"></ion-icon>
+        ANNULER
+      </button>
+    </ion-item>
+
   </ion-list>
 </ion-content>
