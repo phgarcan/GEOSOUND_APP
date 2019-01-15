@@ -23,6 +23,11 @@ import { AuthProvider } from '../providers/auth/auth';
 import { MyApp } from './app.component';
 
 
+import { Media } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
+import {Register} from "../pages/register/register";
+import {RegistrationProvider} from "../providers/register/register";
+import {ValidateEqualDirective} from "../pages/register/passwordValidatorDirective";
 @NgModule({
   declarations: [
     MyApp,
@@ -31,8 +36,10 @@ import { MyApp } from './app.component';
     RecordSoundPage,
     SoundsMapPage,
     LoginPage,
+    AddSoundPage,
     DisplaySoundDetailsPage,
-    AddSoundPage
+    Register,
+    ValidateEqualDirective,
   ],
   imports: [
     BrowserModule,
@@ -49,8 +56,9 @@ import { MyApp } from './app.component';
     RecordSoundPage,
     SoundsMapPage,
     LoginPage,
+    AddSoundPage,
     DisplaySoundDetailsPage,
-    AddSoundPage
+    Register,
   ],
   providers: [
     StatusBar,
@@ -63,6 +71,7 @@ import { MyApp } from './app.component';
     Media,
     File,
     Base64
+    RegistrationProvider
   ]
 })
 export class AppModule { }

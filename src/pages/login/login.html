@@ -39,10 +39,11 @@
         <p ion-text color='danger'>Password is required.</p>
       </ion-item>
 
+
     </ion-list>
 
     <div padding>
-
+      <ion-label  class="registerLink" [navPush]="registerPage">Register</ion-label>
       <!-- Submit button -->
       <button type='submit' [disabled]='form.invalid' ion-button block>Log in</button>
 
