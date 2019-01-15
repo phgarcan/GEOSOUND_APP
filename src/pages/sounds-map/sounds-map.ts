@@ -62,6 +62,10 @@ export class SoundsMapPage {
     let searchString = e.target.value
 
     let filteredSounds = this.sounds.filter((sound) => {
+      if(!sound.description){
+        return false
+      }
+
       return sound.description.includes(searchString)
     })
 
@@ -93,7 +97,7 @@ export class SoundsMapPage {
    * 
    */
   ionViewWillEnter(){
-    this.http.get(SOUND_URL + "?page=1&pageSize=1000").subscribe((sounds: any) => {
+    this.http.get(SOUND_URL + "?page=1&pageSize=100").subscribe((sounds: any) => {
       console.log(`sound loaded`, sounds);
 
       this.sounds = sounds

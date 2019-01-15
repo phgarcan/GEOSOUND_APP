@@ -17,17 +17,14 @@ import { DisplaySoundDetailsPage } from '../pages/display-sound-details/display-
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RecordSoundPage } from '../pages/record-sound/record-sound';
+import { ValidateEqualDirective } from "../pages/register/passwordValidatorDirective";
+import { Register } from "../pages/register/register";
 import { SoundsMapPage } from '../pages/sounds-map/sounds-map';
 import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-interceptor';
 import { AuthProvider } from '../providers/auth/auth';
+import { RegistrationProvider } from "../providers/register/register";
 import { MyApp } from './app.component';
 
-
-import { Media } from '@ionic-native/media';
-import { File } from '@ionic-native/file';
-import {Register} from "../pages/register/register";
-import {RegistrationProvider} from "../providers/register/register";
-import {ValidateEqualDirective} from "../pages/register/passwordValidatorDirective";
 @NgModule({
   declarations: [
     MyApp,
@@ -70,7 +67,7 @@ import {ValidateEqualDirective} from "../pages/register/passwordValidatorDirecti
     NativeGeocoder,
     Media,
     File,
-    Base64
+    Base64,
     RegistrationProvider
   ]
 })
