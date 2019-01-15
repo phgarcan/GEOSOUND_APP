@@ -1,23 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { BrowserModule } from '@angular/platform-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-
-import { MyApp } from './app.component';
-
-import { HomePage } from '../pages/home/home';
+import { IonicStorageModule } from '@ionic/storage';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { BrowseSoundsPage } from '../pages/browse-sounds/browse-sounds';
+import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/login/login';
 import { RecordSoundPage } from '../pages/record-sound/record-sound';
 import { SoundsMapPage } from '../pages/sounds-map/sounds-map';
-import { LoginPage } from '../pages/login/login';
-
-import { AuthProvider } from '../providers/auth/auth';
-
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
-import { IonicStorageModule } from '@ionic/storage';
 import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-interceptor';
+import { AuthProvider } from '../providers/auth/auth';
+import { MyApp } from './app.component';
+import { Geolocation } from '@ionic-native/geolocation';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { DisplaySoundDetailsPage } from '../pages/display-sound-details/display-sound-details';
 
 import { Media } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
@@ -32,6 +30,7 @@ import {ValidateEqualDirective} from "../pages/register/passwordValidatorDirecti
     RecordSoundPage,
     SoundsMapPage,
     LoginPage,
+    DisplaySoundDetailsPage
     Register,
     ValidateEqualDirective,
   ],
@@ -39,7 +38,8 @@ import {ValidateEqualDirective} from "../pages/register/passwordValidatorDirecti
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    LeafletModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -49,6 +49,7 @@ import {ValidateEqualDirective} from "../pages/register/passwordValidatorDirecti
     RecordSoundPage,
     SoundsMapPage,
     LoginPage,
+    DisplaySoundDetailsPage
     Register,
   ],
   providers: [
@@ -57,6 +58,7 @@ import {ValidateEqualDirective} from "../pages/register/passwordValidatorDirecti
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorProvider, multi: true },
+    Geolocation
     Media,
     File,
     RegistrationProvider

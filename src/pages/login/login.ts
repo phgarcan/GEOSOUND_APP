@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { NavController, NavParams } from 'ionic-angular';
-
+import { NavController } from 'ionic-angular';
 import { AuthRequest } from '../../models/auth-request';
 import { AuthProvider } from '../../providers/auth/auth';
 import { HomePage } from '../home/home';
