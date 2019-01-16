@@ -8,6 +8,7 @@ import { MyApp } from './app.component';
 
 import { HomePage } from '../pages/home/home';
 import { BrowseSoundsPage } from '../pages/browse-sounds/browse-sounds';
+import { SoundsCategoryPage } from '../pages/sounds-category/sounds-category';
 import { RecordSoundPage } from '../pages/record-sound/record-sound';
 import { SoundsMapPage } from '../pages/sounds-map/sounds-map';
 import { LoginPage } from '../pages/login/login';
@@ -24,6 +25,7 @@ import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-inte
     MyApp,
     HomePage,
     BrowseSoundsPage,
+    SoundsCategoryPage,
     RecordSoundPage,
     SoundsMapPage,
     LoginPage
@@ -41,7 +43,8 @@ import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-inte
     BrowseSoundsPage,
     RecordSoundPage,
     SoundsMapPage,
-    LoginPage
+    LoginPage,
+    SoundsCategoryPage
   ],
   providers: [
     StatusBar,

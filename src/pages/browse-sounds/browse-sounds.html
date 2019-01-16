@@ -22,4 +22,5 @@
 
 <ion-content padding>
   <h1>BrowseSounds</h1>
+  <button (click)='goToCategory(category._id)' ion-button *ngFor='let category of categories'>{{category.name}} : 1</button>
 </ion-content>

@@ -4,6 +4,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { LoginPage } from '../login/login';
 import { HttpClient } from '@angular/common/http';
 import { config } from '../../app/config';
+import { SoundsCategoryPage } from '../sounds-category/sounds-category';
 
 const CATEGORY_URL = `${config.apiUrl}/api/category`
 
@@ -20,6 +21,8 @@ const CATEGORY_URL = `${config.apiUrl}/api/category`
 })
 export class BrowseSoundsPage {
 
+  categories:any
+
   constructor(private auth: AuthProvider,
     public http: HttpClient,
     public navCtrl: NavController,
@@ -29,10 +32,15 @@ export class BrowseSoundsPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad BrowseSoundsPage');
     this.http.get(CATEGORY_URL).subscribe(categories => {
-      console.log(`Categories loaded`, categories);
+      this.categories = categories;
     });
   }
 
+  goToCategory(id){
+    this.navCtrl.push(SoundsCategoryPage, id);
+  }
+
+  
   logOut() {
     this.auth.logOut();
   }
