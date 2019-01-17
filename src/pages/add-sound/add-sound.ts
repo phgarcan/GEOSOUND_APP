@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Base64 } from '@ionic-native/base64';
 import { File } from '@ionic-native/file';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Media, MediaObject } from '@ionic-native/media';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { config } from '../../app/config';
@@ -26,6 +27,8 @@ export class AddSoundPage {
   form_description: string
   form_city: string
   position: any
+  audio: MediaObject
+  isPlaying: boolean
 
   /**
    * 
@@ -42,7 +45,8 @@ export class AddSoundPage {
     public http: HttpClient,
     private base64: Base64,
     private geolocation: Geolocation,
-    private nativeGeocoder: NativeGeocoder) {
+    private nativeGeocoder: NativeGeocoder,
+    private media: Media) {
 
     if (!this.navParams.data.fileName ||
       !this.navParams.data.filePath) {
@@ -117,8 +121,31 @@ export class AddSoundPage {
         throw err
       })
     }
+  }
 
+  /**
+   * Play the sound
+   */
+  playSound() {
+    if (this.audio) {
+      this.audio.stop()
+      this.audio.release()
+    }
 
+    console.log()
+    this.audio = this.media.create(this.filePath + this.fileName);
+    this.isPlaying = true
+    this.audio.play()
+  }
+
+  /**
+   * Stop the playing of the sound
+   */
+  stopSound() {
+    if (this.isPlaying) {
+      this.audio.stop()
+      this.audio.release()
+    }
   }
 
   /**

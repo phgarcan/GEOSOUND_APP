@@ -19,22 +19,18 @@ export class BrowseSoundsPage {
     public http: HttpClient,
     public navCtrl: NavController,
     public navParams: NavParams) {
-      this.categoriesWithNbSounds = []
+    this.categoriesWithNbSounds = []
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad BrowseSoundsPage');
-    this.http.get(CATEGORY_URL).subscribe((categories:any[]) => {      
-      categories.forEach((category)=> {
-        this.http.get(CATEGORY_URL + "/" + category._id + "/sounds").subscribe((results:any) => {
-          this.categoriesWithNbSounds.push({categoryID:category._id,categoryName:category.name, nbSound:results.length})
+  ionViewWillEnter() {
+    this.categoriesWithNbSounds = []
+    this.http.get(CATEGORY_URL).subscribe((categories: any[]) => {
+      categories.forEach((category) => {
+        this.http.get(CATEGORY_URL + "/" + category._id + "/sounds").subscribe((results: any) => {
+          this.categoriesWithNbSounds.push({ categoryID: category._id, categoryName: category.name, nbSound: results.length })
         });
-
       })
-      
     });
-    //this.categoriesWithNbSounds = categoriesWithNbSounds;
-    //console.log(categoriesWithNbSounds)
   }
 
   goToCategory(id, categoryName) {

@@ -2,10 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NavController, NavParams } from 'ionic-angular';
-import { latLng, Map, MapOptions, marker, Marker, tileLayer } from 'leaflet';
+import { latLng, Map, MapOptions, marker, markerClusterGroup, MarkerClusterGroup, tileLayer } from 'leaflet';
+import 'leaflet.markercluster';
 import { config } from '../../app/config';
-import { DisplaySoundDetailsPage } from '../display-sound-details/display-sound-details';
 import { Sound } from '../../models/sound';
+import { DisplaySoundDetailsPage } from '../display-sound-details/display-sound-details';
+import { s } from '@angular/core/src/render3';
 
 const SOUND_URL = `${config.apiUrl}/api/sound`
 
@@ -17,7 +19,7 @@ const SOUND_URL = `${config.apiUrl}/api/sound`
 export class SoundsMapPage {
   mapOptions: MapOptions
   map: Map
-  mapMarkers: Marker[]
+  mapMarkers: MarkerClusterGroup[]
   sounds: Array<Sound>
 
   /**
@@ -34,16 +36,21 @@ export class SoundsMapPage {
 
     const tileLayerUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
-    const tileLayerOptions = { maxZoom: 13 };
+    const tileLayerOptions = {
+      maxZoom: 20
+    };
 
     this.mapOptions = {
       layers: [
         tileLayer(tileLayerUrl, tileLayerOptions)
       ],
+      zoomControl: false,
+      attributionControl: false,
       zoom: 7,
       center: latLng(46.778186, 6.641524)
     };
 
+    this.mapMarkers = []
   }
 
   /**
@@ -59,20 +66,25 @@ export class SoundsMapPage {
    * @param e 
    */
   search(e: any) {
+
+    this.mapMarkers = []
     let searchString = e.target.value
 
     let filteredSounds = this.sounds.filter((sound) => {
-      if(!sound.description){
+      if (!sound.description) {
         return false
       }
 
       return sound.description.includes(searchString)
     })
 
-    this.mapMarkers = []
+    let clusterMarker = markerClusterGroup()
+
     filteredSounds.forEach((sound) => {
-      this.mapMarkers.push(this.createSoundMarker(sound))
+      clusterMarker.addLayer(this.createSoundMarker(sound))
     })
+
+    this.mapMarkers.push(clusterMarker)
   }
 
   /**
@@ -96,21 +108,29 @@ export class SoundsMapPage {
   /**
    * 
    */
-  ionViewWillEnter(){
+  ionViewWillEnter() {
+    this.mapMarkers = []
+    console.log(this.navCtrl.getPrevious())
     this.http.get(SOUND_URL + "?page=1&pageSize=100").subscribe((sounds: any) => {
-      console.log(`sound loaded`, sounds);
+      let clusterMarker = markerClusterGroup()
+      console.log('test')
 
       this.sounds = sounds
 
-      this.mapMarkers = []
-
       sounds.forEach(sound => {
-        this.mapMarkers.push(this.createSoundMarker(sound))
+        clusterMarker.addLayer(this.createSoundMarker(sound));
       });
 
+      this.mapMarkers.push(clusterMarker)
     });
   }
 
+  /**
+   * Used to reset map (fix grey map bug)
+   */
+  ionViewDidEnter() {
+    this.map.invalidateSize();
+  }
   /**
    * display detailed information on the sound
    * @param soundId 

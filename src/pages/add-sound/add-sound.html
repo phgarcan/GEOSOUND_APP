@@ -11,8 +11,26 @@
 
   <ion-list inset no-lines>
 
+    <ion-item>{{fileName}}</ion-item>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+
+            <button ion-button icon-start large block (click)="playSound()">
+              <ion-icon name="play"></ion-icon>Play
+            </button>
+
+            <button ion-button icon-start large block (click)="stopSound()">
+              <ion-icon name="square"></ion-icon>Stop
+            </button>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
     <form (ngSubmit)="save()" #addSoundForm="ngForm">
-      <ion-item>{{fileName}}</ion-item>
       <ion-item>
         <ion-label floating>Category </ion-label>
         <ion-select [(ngModel)]="form_categories" multiple="true" cancelText="Annuler" okText="Ok" name="categories"

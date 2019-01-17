@@ -27,6 +27,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { RegistrationProvider } from "../providers/register/register";
 import { MyApp } from './app.component';
 
+
 @NgModule({
   declarations: [
     MyApp,
