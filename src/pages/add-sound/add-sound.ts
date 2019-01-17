@@ -79,41 +79,43 @@ export class AddSoundPage {
    */
   async save() {
 
-
-
     if (this.platform.is('ios') || this.platform.is('android')) {
-      this.base64.encodeFile(this.filePath).then(async (base64File: string) => {
 
-        // GEOCODE POSITION
-        let city = this.form_city
+      let base64File
+      try {
+        //console.log("Is file exist ? :",await this.file.checkFile(this.filePath,this.fileName))
+        base64File = await this.file.readAsDataURL(this.filePath, this.fileName)
+      } catch (err) {
+        console.log(err)
+        base64File = ''
+      }
 
-        if (this.position != null) {
-          city = await Sound.getCityFromCoords(this.position.coords.latitude, this.position.coords.longitude)
-        } else {
-          this.position = await Sound.geocodeCity(this.form_city)
-        }
+      // GEOCODE POSITION
+      let city = this.form_city
 
-        // CREATE SOUND IN JSON
-        let soundToSave = {
-          sound: base64File,
-          categories: this.form_categories,
-          coordinate: { "city": city, "loc": { "x": this.position.coords.latitude, "y": this.position.coords.longitude } },
-          description: this.form_description,
-          quality: this.form_quality
-        }
+      if (this.position != null) {
+        city = await Sound.getCityFromCoords(this.position.coords.latitude, this.position.coords.longitude)
+      } else {
+        this.position = await Sound.geocodeCity(this.form_city)
+      }
 
-        // REQUEST TO SERVER
-        this.http.post(SOUND_URL, soundToSave).subscribe(response => {
-          console.log(response)
-          this.navCtrl.pop()
-        }, (err: HttpErrorResponse) => {
-          console.log(err)
-          throw err
-        })
+      // CREATE SOUND IN JSON
+      let soundToSave = {
+        sound: base64File,
+        categories: this.form_categories,
+        coordinate: { "city": city, "loc": { "x": this.position.coords.latitude, "y": this.position.coords.longitude } },
+        description: this.form_description,
+        quality: this.form_quality
+      }
 
-      }, (err) => {
-        console.log("Error with base64 encode : ", err);
-      });
+      // REQUEST TO SERVER
+      this.http.post(SOUND_URL, soundToSave).subscribe(response => {
+        console.log(response)
+        this.navCtrl.pop()
+      }, (err: HttpErrorResponse) => {
+        console.log(err)
+        throw err
+      })
     }
 
 

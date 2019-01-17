@@ -1,10 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { File } from '@ionic-native/file';
+import { Media, MediaObject } from '@ionic-native/media';
+import { Storage } from '@ionic/storage';
 import { NavController, NavParams } from 'ionic-angular';
 import { config } from '../../app/config';
-import { Storage } from '@ionic/storage';
-import { User } from '../../models/user';
 import { Sound } from '../../models/sound';
+import { User } from '../../models/user';
+
+
 
 const SOUND_URL = `${config.apiUrl}/api/sound/`
 const USER_URL = `${config.apiUrl}/api/user/`
@@ -22,6 +26,8 @@ export class DisplaySoundDetailsPage {
   sound: Sound
   user: User
   auth: User
+  audio: MediaObject
+  isPlaying: boolean
 
   /**
    * Constructor
@@ -32,7 +38,9 @@ export class DisplaySoundDetailsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public http: HttpClient,
-    private storage: Storage) {
+    private storage: Storage,
+    private file: File,
+    private media: Media) {
 
     this.sound = new Sound()
     this.user = new User()
@@ -44,6 +52,73 @@ export class DisplaySoundDetailsPage {
       this.auth = e.user
     })
 
+  }
+
+  /**
+   * Play the sound
+   */
+  async playSound() {
+    if (this.audio) {
+      this.audio.stop()
+      this.audio.release()
+    }
+
+    try {
+
+      let base64Header = this.sound.sound
+      let base64Sound = base64Header.split(';base64,').pop();
+
+      await this.file.writeFile(this.file.dataDirectory, 'tmp.3gp',
+        this.b64toBlob(base64Sound, 'audio/3gpp2'),
+        { replace: true })
+
+
+      this.audio = this.media.create(this.file.dataDirectory + 'tmp.3gp');
+      this.isPlaying = true
+      this.audio.play()
+
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  /**
+   * Stop the playing of the sound
+   */
+  stopSound() {
+    if (this.isPlaying) {
+      this.audio.stop()
+      this.audio.release()
+    }
+  }
+
+  /**
+   * Function used to encode base64 to Blob object
+   * src : https://forum.ionicframework.com/t/save-base64-encoded-image-to-specific-filepath/96180/3
+   * @param b64Data 
+   * @param contentType 
+   */
+  b64toBlob(b64Data, contentType) {
+    contentType = contentType || '';
+    var sliceSize = 512;
+    var byteCharacters = atob(b64Data);
+    var byteArrays = [];
+
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      var byteNumbers = new Array(slice.length);
+      for (var i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      var byteArray = new Uint8Array(byteNumbers);
+
+      byteArrays.push(byteArray);
+    }
+
+    var blob = new Blob(byteArrays, { type: contentType });
+    return blob;
   }
 
   /**
@@ -75,5 +150,4 @@ export class DisplaySoundDetailsPage {
 
     });
   }
-
 }
