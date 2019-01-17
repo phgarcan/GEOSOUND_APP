@@ -39,12 +39,13 @@
         <p ion-text color='danger'>Password is required.</p>
       </ion-item>
 
+
     </ion-list>
 
     <div padding>
-
+      <button  class="registerLink" [navPush]="registerPage" ion-button color="secondary" large block>Register</button>
       <!-- Submit button -->
-      <button type='submit' [disabled]='form.invalid' ion-button block>Log in</button>
+      <button type='submit' [disabled]='form.invalid' ion-button block large>Log in</button>
 
       <!-- Error message displayed if the login failed -->
       <p *ngIf='loginError' ion-text color='danger'>Username or password is invalid.</p>

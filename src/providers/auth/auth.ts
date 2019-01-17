@@ -1,16 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
-import { Observable, ReplaySubject } from 'rxjs/Rx';
+import { Storage } from '@ionic/storage';
 import { delayWhen, map } from 'rxjs/operators';
-
+import { Observable, ReplaySubject } from 'rxjs/Rx';
+import { config } from '../../app/config';
 import { AuthRequest } from '../../models/auth-request';
 import { AuthResponse } from '../../models/auth-response';
 import { User } from '../../models/user';
 
-import { Storage } from '@ionic/storage';
 
-import { config } from '../../app/config';
+
 
 const AUTH_URL = `${config.apiUrl}/login`
 
@@ -55,7 +54,7 @@ export class AuthProvider {
       }),
       map(auth => {
         this.authSource.next(auth);
-        console.log(`User ${auth.user.name} logged in`);
+        console.log(`User logged in : `, auth);
         return auth.user;
       })
     );
