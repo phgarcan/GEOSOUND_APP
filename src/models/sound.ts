@@ -7,7 +7,7 @@ class Location {
 }
 
 class Coordinate {
-    city: String
+    city: string
     loc: Location
 }
 
@@ -16,10 +16,10 @@ export class Sound {
     _id: number
     categories: Array<Category>
     coordinate: Coordinate
-    description: String
-    quality: String
-    sound: String
-    user: String
+    description: string
+    quality: string
+    sound: string
+    user: string
 
     /**
      * Geocode the position with the long and lat

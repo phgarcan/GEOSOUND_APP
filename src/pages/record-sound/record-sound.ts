@@ -12,10 +12,10 @@ import { AddSoundPage } from '../add-sound/add-sound';
 
 export class RecordSoundPage {
 
-  recording: boolean = false;
-  filePath: string;
-  fileName: string;
-  audio: MediaObject;
+  recording: boolean = false
+  filePath: string
+  fileName: string
+  audio: MediaObject
 
   /**
    * 
@@ -44,23 +44,23 @@ export class RecordSoundPage {
    */
   startRecord() {
 
-    this.recording = true;
+    this.recording = true
 
-    this.fileName = 'record' + new Date().getDate() + new Date().getMonth() + new Date().getFullYear() + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.3gp';
+    this.fileName = 'record' + new Date().getDate() + new Date().getMonth() + new Date().getFullYear() + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.3gp'
 
     if (this.platform.is('ios')) {
-      this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName;
+      this.filePath = this.file.documentsDirectory
     } else if (this.platform.is('android')) {
-      this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
+      this.filePath = this.file.externalDataDirectory
     } else {
       // this section is used for testing app in development
       this.fileName = 'sound.mp3'
-      this.filePath = 'file:///C:/Users/Arthur/Downloads' + this.fileName
+      this.filePath = 'file:///C:/Users/Arthur/Downloads'
       return
     }
 
-    this.audio = this.media.create(this.filePath);
-    this.audio.startRecord();
+    this.audio = this.media.create(this.filePath + this.fileName)
+    this.audio.startRecord()
   }
 
   /**
@@ -68,10 +68,11 @@ export class RecordSoundPage {
    */
   stopRecord() {
     if (this.platform.is('ios') || this.platform.is('android')) {
-      this.audio.stopRecord();
+      this.audio.stopRecord()
+      this.audio.release()
     }
 
-    this.recording = false;
+    this.recording = false
 
     this.navCtrl.push(AddSoundPage, { filePath: this.filePath, fileName: this.fileName })
 
@@ -84,7 +85,8 @@ export class RecordSoundPage {
     this.recording = false
 
     if (this.platform.is('ios') || this.platform.is('android')) {
-      this.audio.stopRecord();
+      this.audio.stopRecord()
+      this.audio.release()
     }
   }
 }
