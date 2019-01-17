@@ -13,6 +13,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { AddSoundPage } from '../pages/add-sound/add-sound';
 import { BrowseSoundsPage } from '../pages/browse-sounds/browse-sounds';
+import { SoundsCategoryPage } from '../pages/sounds-category/sounds-category';
 import { DisplaySoundDetailsPage } from '../pages/display-sound-details/display-sound-details';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -24,12 +25,14 @@ import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-inte
 import { AuthProvider } from '../providers/auth/auth';
 import { RegistrationProvider } from "../providers/register/register";
 import { MyApp } from './app.component';
+import {EditSoundPage} from "../pages/edit-sound/edit-sound";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     BrowseSoundsPage,
+    SoundsCategoryPage,
     RecordSoundPage,
     SoundsMapPage,
     LoginPage,
@@ -37,6 +40,7 @@ import { MyApp } from './app.component';
     DisplaySoundDetailsPage,
     Register,
     ValidateEqualDirective,
+    EditSoundPage,
   ],
   imports: [
     BrowserModule,
@@ -53,9 +57,11 @@ import { MyApp } from './app.component';
     RecordSoundPage,
     SoundsMapPage,
     LoginPage,
+    SoundsCategoryPage
     AddSoundPage,
     DisplaySoundDetailsPage,
     Register,
+    EditSoundPage,
   ],
   providers: [
     StatusBar,
