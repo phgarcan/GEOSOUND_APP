@@ -13,6 +13,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { AddSoundPage } from '../pages/add-sound/add-sound';
 import { BrowseSoundsPage } from '../pages/browse-sounds/browse-sounds';
+import { SoundsCategoryPage } from '../pages/sounds-category/sounds-category';
 import { DisplaySoundDetailsPage } from '../pages/display-sound-details/display-sound-details';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -30,6 +31,7 @@ import { MyApp } from './app.component';
     MyApp,
     HomePage,
     BrowseSoundsPage,
+    SoundsCategoryPage,
     RecordSoundPage,
     SoundsMapPage,
     LoginPage,
@@ -53,6 +55,7 @@ import { MyApp } from './app.component';
     RecordSoundPage,
     SoundsMapPage,
     LoginPage,
+    SoundsCategoryPage
     AddSoundPage,
     DisplaySoundDetailsPage,
     Register,
