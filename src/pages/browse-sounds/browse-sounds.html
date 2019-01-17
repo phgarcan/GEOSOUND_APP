@@ -8,19 +8,22 @@
 
   <ion-navbar>
     <ion-title>BrowseSounds</ion-title>
-    
+
     <!-- Logout button -->
     <ion-buttons end>
       <button ion-button icon-only (click)='logOut()'>
         <ion-icon name='log-out'></ion-icon>
       </button>
     </ion-buttons>
-    
+
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
   <h1>BrowseSounds</h1>
-  <button (click)='goToCategory(category._id)' ion-button *ngFor='let category of categories'>{{category.name}} : 1</button>
+  <ion-list>
+    <button (click)='goToCategory(category.categoryID,category.categoryName)' ion-item *ngFor='let category of categoriesWithNbSounds'>{{category.categoryName}} : {{category.nbSound}}</button>
+  </ion-list>
+
 </ion-content>

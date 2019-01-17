@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>sounds of the category</ion-title>
+    <ion-title>sounds of the category : {{categoryName}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,5 +15,8 @@
 
 <ion-content padding>
 
-  <button ion-button *ngFor='let sound of category'>{{sound.description}}</button>
+  <ion-list>
+    <button (click)='goToDetails(sound._id)' ion-item *ngFor='let sound of sounds'>{{sound.description}}</button>
+  </ion-list>
 </ion-content>
+
