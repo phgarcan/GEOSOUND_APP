@@ -1,10 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { config } from '../../app/config';
-import { Storage } from '@ionic/storage';
-import { User } from '../../models/user';
-import { Sound } from '../../models/sound';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Component} from '@angular/core';
+import {NavController, NavParams} from 'ionic-angular';
+import {config} from '../../app/config';
+import {Storage} from '@ionic/storage';
+import {User} from '../../models/user';
+import {Sound} from '../../models/sound';
+import {EditSoundPage} from "../edit-sound/edit-sound";
+import {LoginPage} from "../login/login";
+import {AlertController} from 'ionic-angular';
 
 const SOUND_URL = `${config.apiUrl}/api/sound/`
 const USER_URL = `${config.apiUrl}/api/user/`
@@ -15,9 +18,11 @@ const USER_URL = `${config.apiUrl}/api/user/`
 })
 
 /**
- * 
+ *
  */
 export class DisplaySoundDetailsPage {
+
+  editSoundPage = EditSoundPage
 
   sound: Sound
   user: User
@@ -25,10 +30,11 @@ export class DisplaySoundDetailsPage {
 
   /**
    * Constructor
-   * @param navCtrl 
-   * @param navParams 
+   * @param navCtrl
+   * @param navParams
    */
   constructor(
+    private alertCtrl: AlertController,
     public navCtrl: NavController,
     public navParams: NavParams,
     public http: HttpClient,
@@ -47,7 +53,7 @@ export class DisplaySoundDetailsPage {
   }
 
   /**
-   * 
+   *
    */
   ionViewDidLoad() {
     console.log('ionViewDidLoad DisplaySoundDetailsPage');
@@ -76,4 +82,29 @@ export class DisplaySoundDetailsPage {
     });
   }
 
+  /**
+   * Delete the soune
+   */
+  async delete() {
+
+    // REQUEST TO SERVER
+    this.http.delete(SOUND_URL + '/' + this.sound._id).subscribe(response => {
+      let alert = this.alertCtrl.create({
+        title: 'Sound Deleted',
+        subTitle: 'The sound has been successfully deleted',
+        buttons: [
+          {
+            text: 'OK',
+            role: 'OK',
+            handler: () => {
+              this.navCtrl.pop();
+            }
+          }]
+      });
+      alert.present();
+    }, (err: HttpErrorResponse) => {
+
+      throw err
+    })
+  }
 }
