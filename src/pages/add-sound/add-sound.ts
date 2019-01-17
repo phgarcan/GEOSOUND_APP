@@ -1,10 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Base64 } from '@ionic-native/base64';
 import { File } from '@ionic-native/file';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Media, MediaObject } from '@ionic-native/media';
-import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { config } from '../../app/config';
 import { Category } from '../../models/category';
@@ -43,9 +41,7 @@ export class AddSoundPage {
     private file: File,
     public platform: Platform,
     public http: HttpClient,
-    private base64: Base64,
     private geolocation: Geolocation,
-    private nativeGeocoder: NativeGeocoder,
     private media: Media) {
 
     if (!this.navParams.data.fileName ||
@@ -87,7 +83,6 @@ export class AddSoundPage {
 
       let base64File
       try {
-        //console.log("Is file exist ? :",await this.file.checkFile(this.filePath,this.fileName))
         base64File = await this.file.readAsDataURL(this.filePath, this.fileName)
       } catch (err) {
         console.log(err)
