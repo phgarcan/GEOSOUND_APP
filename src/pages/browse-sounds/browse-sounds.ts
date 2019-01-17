@@ -1,9 +1,11 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { config } from '../../app/config';
-import { AuthProvider } from '../../providers/auth/auth';
-import { SoundsCategoryPage } from '../sounds-category/sounds-category';
+import {HttpClient} from '@angular/common/http';
+import {Component} from '@angular/core';
+import {NavController, NavParams} from 'ionic-angular';
+import {config} from '../../app/config';
+import {AuthProvider} from '../../providers/auth/auth';
+import {SoundsCategoryPage} from '../sounds-category/sounds-category';
+import {Storage} from "@ionic/storage";
+
 const CATEGORY_URL = `${config.apiUrl}/api/category`
 
 @Component({
@@ -16,29 +18,34 @@ export class BrowseSoundsPage {
   categoriesWithNbSounds: any[]
 
   constructor(private auth: AuthProvider,
-    public http: HttpClient,
-    public navCtrl: NavController,
-    public navParams: NavParams) {
-      this.categoriesWithNbSounds = []
+              public http: HttpClient,
+              public navCtrl: NavController,
+              public navParams: NavParams,
+              private storage: Storage) {
+    this.categoriesWithNbSounds = []
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BrowseSoundsPage');
-    this.http.get(CATEGORY_URL).subscribe((categories:any[]) => {      
-      categories.forEach((category)=> {
-        this.http.get(CATEGORY_URL + "/" + category._id + "/sounds").subscribe((results:any) => {
-          this.categoriesWithNbSounds.push({categoryID:category._id,categoryName:category.name, nbSound:results.length})
+    this.http.get(CATEGORY_URL).subscribe((categories: any[]) => {
+      categories.forEach((category) => {
+        this.http.get(CATEGORY_URL + "/" + category._id + "/sounds").subscribe((results: any) => {
+          this.categoriesWithNbSounds.push({
+            categoryID: category._id,
+            categoryName: category.name,
+            nbSound: results.length
+          })
         });
 
       })
-      
+
     });
     //this.categoriesWithNbSounds = categoriesWithNbSounds;
     //console.log(categoriesWithNbSounds)
   }
 
   goToCategory(id, categoryName) {
-    this.navCtrl.push(SoundsCategoryPage, { id, categoryName });
+    this.navCtrl.push(SoundsCategoryPage, {id, categoryName});
   }
 
 

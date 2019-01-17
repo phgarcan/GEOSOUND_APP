@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>RecordSound</ion-title>
+    <ion-title>Record sound</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -11,19 +11,19 @@
 
     <ion-item><button ion-button color="primary" large block icon-start (click)="stopRecord()" *ngIf="recording">
         <ion-icon name="mic-off"></ion-icon>
-        STOP
+        Stop
       </button>
     </ion-item>
 
     <ion-item><button ion-button color="secondary" large block icon-start (click)="startRecord()" *ngIf="!recording">
         <ion-icon name="mic"></ion-icon>
-        ENREGISTRER
+        Record
       </button>
     </ion-item>
 
     <ion-item><button ion-button color="danger" outline large block icon-start (click)="cancelRecord()" *ngIf="recording">
         <ion-icon name="close"></ion-icon>
-        ANNULER
+        Cancel
       </button>
     </ion-item>
 

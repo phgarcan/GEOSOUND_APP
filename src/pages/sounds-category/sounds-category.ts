@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { AuthProvider } from '../../providers/auth/auth';
-import { HttpClient } from '@angular/common/http';
-import { config } from '../../app/config';
-import { DisplaySoundDetailsPage } from '../display-sound-details/display-sound-details'
+import {Component} from '@angular/core';
+import {NavController, NavParams} from 'ionic-angular';
+import {AuthProvider} from '../../providers/auth/auth';
+import {HttpClient} from '@angular/common/http';
+import {config} from '../../app/config';
+import {DisplaySoundDetailsPage} from '../display-sound-details/display-sound-details'
 
 const SOUNDSBYID_URL = `${config.apiUrl}/api/category`;
 
@@ -19,9 +19,9 @@ export class SoundsCategoryPage {
   categoryName: any
 
   constructor(private auth: AuthProvider,
-    public http: HttpClient,
-    public navCtrl: NavController,
-    public navParams: NavParams) {
+              public http: HttpClient,
+              public navCtrl: NavController,
+              public navParams: NavParams) {
     this.idSound = this.navParams.data.id;
     this.categoryName = this.navParams.data.categoryName;
   }
@@ -32,7 +32,8 @@ export class SoundsCategoryPage {
     });
   }
 
+
   goToDetails(id) {
-    this.navCtrl.push(DisplaySoundDetailsPage, { id: id });
+    this.navCtrl.push(DisplaySoundDetailsPage, {id: id});
   }
 }
