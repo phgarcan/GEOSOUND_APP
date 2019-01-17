@@ -25,6 +25,7 @@ import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-inte
 import { AuthProvider } from '../providers/auth/auth';
 import { RegistrationProvider } from "../providers/register/register";
 import { MyApp } from './app.component';
+import {EditSoundPage} from "../pages/edit-sound/edit-sound";
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MyApp } from './app.component';
     DisplaySoundDetailsPage,
     Register,
     ValidateEqualDirective,
+    EditSoundPage,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +61,7 @@ import { MyApp } from './app.component';
     AddSoundPage,
     DisplaySoundDetailsPage,
     Register,
+    EditSoundPage,
   ],
   providers: [
     StatusBar,
