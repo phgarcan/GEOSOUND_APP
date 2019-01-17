@@ -1,23 +1,14 @@
 
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
-import {config} from '../../app/config';
-import {Storage} from '@ionic/storage';
-import {User} from '../../models/user';
-import {Sound} from '../../models/sound';
-import {EditSoundPage} from "../edit-sound/edit-sound";
-import {LoginPage} from "../login/login";
-import {AlertController} from 'ionic-angular';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { File } from '@ionic-native/file';
 import { Media, MediaObject } from '@ionic-native/media';
 import { Storage } from '@ionic/storage';
-import { NavController, NavParams } from 'ionic-angular';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
 import { config } from '../../app/config';
 import { Sound } from '../../models/sound';
 import { User } from '../../models/user';
+import { EditSoundPage } from "../edit-sound/edit-sound";
 
 const SOUND_URL = `${config.apiUrl}/api/sound/`
 const USER_URL = `${config.apiUrl}/api/user/`

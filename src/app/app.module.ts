@@ -13,19 +13,19 @@ import { IonicStorageModule } from '@ionic/storage';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { AddSoundPage } from '../pages/add-sound/add-sound';
 import { BrowseSoundsPage } from '../pages/browse-sounds/browse-sounds';
-import { SoundsCategoryPage } from '../pages/sounds-category/sounds-category';
 import { DisplaySoundDetailsPage } from '../pages/display-sound-details/display-sound-details';
+import { EditSoundPage } from "../pages/edit-sound/edit-sound";
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RecordSoundPage } from '../pages/record-sound/record-sound';
 import { ValidateEqualDirective } from "../pages/register/passwordValidatorDirective";
 import { Register } from "../pages/register/register";
+import { SoundsCategoryPage } from '../pages/sounds-category/sounds-category';
 import { SoundsMapPage } from '../pages/sounds-map/sounds-map';
 import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-interceptor';
 import { AuthProvider } from '../providers/auth/auth';
 import { RegistrationProvider } from "../providers/register/register";
 import { MyApp } from './app.component';
-import {EditSoundPage} from "../pages/edit-sound/edit-sound";
 
 @NgModule({
   declarations: [
@@ -57,7 +57,7 @@ import {EditSoundPage} from "../pages/edit-sound/edit-sound";
     RecordSoundPage,
     SoundsMapPage,
     LoginPage,
-    SoundsCategoryPage
+    SoundsCategoryPage,
     AddSoundPage,
     DisplaySoundDetailsPage,
     Register,

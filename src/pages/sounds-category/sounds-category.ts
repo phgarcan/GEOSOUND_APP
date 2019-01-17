@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { HttpClient } from '@angular/common/http';
 import { config } from '../../app/config';
+import { DisplaySoundDetailsPage } from '../display-sound-details/display-sound-details'
 
 const SOUNDSBYID_URL = `${config.apiUrl}/api/category`;
 
@@ -31,7 +32,7 @@ export class SoundsCategoryPage {
     });
   }
 
-  /*goToDetails(id) {
-    this.navCtrl.push(DisplaySoundDetails, id);
-  }*/
+  goToDetails(id) {
+    this.navCtrl.push(DisplaySoundDetailsPage, { id: id });
+  }
 }
