@@ -29,8 +29,8 @@ export class SoundsCategoryPage {
 
   ionViewDidLoad() {
     if (this.idCategory == 0) {
-      this.http.get(SOUND_URL + "/user").subscribe((results: any) => {
-
+      this.http.get(SOUND_URL + "/user").subscribe((sounds: any) => {
+        this.sounds = sounds
       })
     } else {
       this.http.get(CATEGORY_URL + "/" + this.idCategory + "/sounds").subscribe(sounds => {

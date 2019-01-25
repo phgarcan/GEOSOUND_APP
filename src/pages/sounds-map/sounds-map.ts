@@ -83,7 +83,7 @@ export class SoundsMapPage {
         return false
       }
 
-      return sound.description.includes(searchString)
+      return sound.description.toLowerCase().includes(searchString.toLowerCase())
     })
 
     let clusterMarker = markerClusterGroup()
