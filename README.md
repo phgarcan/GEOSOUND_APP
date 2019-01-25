@@ -1,6 +1,7 @@
 # GeoSound
 ## Description
-This app is linked to the [GEOSOUND API](https://github.com/verdonarthur/GeoSound) developped during the Webserv course. It lets user record and locate sounds.
+This app is linked to the [GEOSOUND API](https://github.com/verdonarthur/GeoSound) developped during the Webserv course. 
+It lets user record and locate sounds.
 
 ## Deployment 
 The app has not been published on the Play Store. It can be deployed to a phone using Ionic built in tools.
@@ -19,16 +20,30 @@ The app lets you :
 * Edit and delete your own sounds
 
 ###Login
-<img src="./docimg/login.png" style="width:50%, float:left;"  alt="Login screenshot">
+
+![Login](docimg/login.png)
+
 Enter your credentials to login to the app or touch register to register.
 
 ###Register
-![Register Screenshot](docimg/register.png "Register screenshot") You can register by filling up the form. Choose a user name, a valid e-mail and a password and touch register.
 
-###Browse sounds
-![Browse sounds Screenshot](docimg/browse-sounds.png "Browse sounds screenshot") 
-Sounds are displayed by category. You can chose a category by touching it and listen to the recorded sounds.
+
+
+You can register by filling up the form. Choose a username, a valid e-mail and a password. 
+Touch register to confirm registration. A pop up will confirm the registration and redirect you to the login page.
+
+###Browse sounds 
+Sounds are displayed by category. You can chose a category by touching it and listen to the recorded sounds. 
+The "My Sounds" category will list all of your sounds.
+
+By touching  "view" you can access the details of a sound. If the sound is yours, you will be able to edit or delete a sound. 
 
 ###Map of sounds
-![Map of sounds screenshot](docimg/browse-sounds.png "Map of sounds screenshot") 
-Sounds are displayed by category. You can chose a category by touching it and listen to the recorded sounds.
+By touching the "Map Of Sounds" tab, you'll be able to see where sounds have been recorded. You can click on a sound or 
+on a cluster of sound to open the sound's detail page and be able to listen to it. If you own the sound you opened,
+you'll be able to edit or delete the sound from there.
+ 
+###Recording a sound
+By touching the "Record Sound" tab you'll be able to record a sound. After recording the sound you'll be able to enter a
+description, chose categories, describe the sound quality and finally confirm the upload.
+
