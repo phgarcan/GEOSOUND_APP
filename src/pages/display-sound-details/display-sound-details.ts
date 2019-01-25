@@ -1,18 +1,18 @@
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Component} from '@angular/core';
-import {File} from '@ionic-native/file';
-import {Media, MediaObject} from '@ionic-native/media';
-import {Storage} from '@ionic/storage';
-import {AlertController, NavController, NavParams} from 'ionic-angular';
-import {config} from '../../app/config';
-import {Sound} from '../../models/sound';
-import {User} from '../../models/user';
-import {EditSoundPage} from "../edit-sound/edit-sound";
-import {Category} from "../../models/category";
-import {Observable} from "rxjs";
-import {forkJoin} from "rxjs/observable/forkJoin";
-import {map} from "rxjs/operators";
-import {SoundsCategoryPage} from "../sounds-category/sounds-category";
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { File } from '@ionic-native/file';
+import { Media, MediaObject } from '@ionic-native/media';
+import { Storage } from '@ionic/storage';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
+import { Observable } from "rxjs";
+import { forkJoin } from "rxjs/observable/forkJoin";
+import { map } from "rxjs/operators";
+import { config } from '../../app/config';
+import { Category } from "../../models/category";
+import { Sound } from '../../models/sound';
+import { User } from '../../models/user';
+import { EditSoundPage } from "../edit-sound/edit-sound";
+import { SoundsCategoryPage } from "../sounds-category/sounds-category";
 
 
 const SOUND_URL = `${config.apiUrl}/api/sound/`
@@ -80,7 +80,7 @@ export class DisplaySoundDetailsPage {
 
       await this.file.writeFile(this.file.dataDirectory, 'tmp.3gp',
         this.b64toBlob(base64Sound, 'audio/3gpp2'),
-        {replace: true})
+        { replace: true })
 
 
       this.audio = this.media.create(this.file.dataDirectory + 'tmp.3gp');
@@ -127,7 +127,7 @@ export class DisplaySoundDetailsPage {
       byteArrays.push(byteArray);
     }
 
-    var blob = new Blob(byteArrays, {type: contentType});
+    var blob = new Blob(byteArrays, { type: contentType });
     return blob;
   }
 
@@ -149,28 +149,28 @@ export class DisplaySoundDetailsPage {
 
     // Load sound from API
     this.http.get(SOUND_URL + this.navParams.data.id).subscribe((sound: any) => {
-        console.log(`sound loaded`, sound)
-        this.sound = sound
+      console.log(`sound loaded`, sound)
+      this.sound = sound      
 
-        // Load user from API
-        this.http.get(USER_URL + sound.user).subscribe((user: any) => {
-          this.user = user
+      // Load user from API
+      this.http.get(USER_URL + sound.user).subscribe((user: any) => {
+        this.user = user
 
 
-        })
-// Load categories from API
-        let observables: Array<Observable<Category>> = []
-        this.sound.categories.forEach((category_id: any) => {
+      })
+      // Load categories from API
+      let observables: Array<Observable<Category>> = []
+      this.sound.categories.forEach((category_id: any) => {
 
-          let observable = this.http.get<Category[]>(CATEGORY_URL + category_id).pipe(map(categories => {
-            return categories[0]
-          }));
-          observables.push(observable)
-        });
-        forkJoin(...observables).subscribe(categories => {
-          this.sound.categories = categories
-        })
-      }
+        let observable = this.http.get<Category[]>(CATEGORY_URL + category_id).pipe(map(categories => {
+          return categories[0]
+        }));
+        observables.push(observable)
+      });
+      forkJoin(...observables).subscribe(categories => {
+        this.sound.categories = categories
+      })
+    }
     );
   }
 
@@ -202,6 +202,6 @@ export class DisplaySoundDetailsPage {
   }
 
   goToCategory(id, categoryName) {
-    this.navCtrl.push(SoundsCategoryPage, {id, categoryName});
+    this.navCtrl.push(SoundsCategoryPage, { id, categoryName });
   }
 }

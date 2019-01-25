@@ -14,10 +14,10 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-list>
-    <button (click)='goToCategory(category.categoryID,category.categoryName)' ion-item
-            *ngFor='let category of categoriesWithNbSounds'>{{category.categoryName}} : {{category.nbSound}}</button>
+<ion-content>
+  <ion-list no-lines>
+    <button class="category" (click)='goToCategory(category.categoryID,category.categoryName)' ion-item
+            *ngFor='let category of categoriesWithNbSounds'>{{category.categoryName}} <ion-badge color="principal" class="nbSoundInCategory">{{category.nbSound}}</ion-badge></button>
   </ion-list>
 
 </ion-content>

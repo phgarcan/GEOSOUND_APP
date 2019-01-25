@@ -1,11 +1,12 @@
-import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
-import {AuthProvider} from '../../providers/auth/auth';
-import {HttpClient} from '@angular/common/http';
-import {config} from '../../app/config';
-import {DisplaySoundDetailsPage} from '../display-sound-details/display-sound-details'
+import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
+import { config } from '../../app/config';
+import { AuthProvider } from '../../providers/auth/auth';
+import { DisplaySoundDetailsPage } from '../display-sound-details/display-sound-details';
 
-const SOUNDSBYID_URL = `${config.apiUrl}/api/category`;
+const CATEGORY_URL = `${config.apiUrl}/api/category`;
+const SOUND_URL = `${config.apiUrl}/api/sound`
 
 @Component({
   selector: 'page-sounds-category',
@@ -15,25 +16,33 @@ const SOUNDSBYID_URL = `${config.apiUrl}/api/category`;
 export class SoundsCategoryPage {
 
   sounds: any
-  idSound: any
+  idCategory: any
   categoryName: any
 
   constructor(private auth: AuthProvider,
-              public http: HttpClient,
-              public navCtrl: NavController,
-              public navParams: NavParams) {
-    this.idSound = this.navParams.data.id;
+    public http: HttpClient,
+    public navCtrl: NavController,
+    public navParams: NavParams) {
+    this.idCategory = this.navParams.data.id;
     this.categoryName = this.navParams.data.categoryName;
   }
 
   ionViewDidLoad() {
-    this.http.get(SOUNDSBYID_URL + "/" + this.idSound + "/sounds").subscribe(sounds => {
-      this.sounds = sounds;
-    });
+    if (this.idCategory == 0) {
+      this.http.get(SOUND_URL + "/user").subscribe((results: any) => {
+
+      })
+    } else {
+      this.http.get(CATEGORY_URL + "/" + this.idCategory + "/sounds").subscribe(sounds => {
+        this.sounds = sounds;
+      });
+    }
+
+
   }
 
 
   goToDetails(id) {
-    this.navCtrl.push(DisplaySoundDetailsPage, {id: id});
+    this.navCtrl.push(DisplaySoundDetailsPage, { id: id });
   }
 }

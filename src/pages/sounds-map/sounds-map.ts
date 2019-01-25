@@ -2,12 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NavController, NavParams } from 'ionic-angular';
-import { latLng, Map, MapOptions, marker, markerClusterGroup, MarkerClusterGroup, tileLayer } from 'leaflet';
+import { icon, latLng, Map, MapOptions, marker, markerClusterGroup, MarkerClusterGroup, tileLayer } from 'leaflet';
 import 'leaflet.markercluster';
 import { config } from '../../app/config';
 import { Sound } from '../../models/sound';
 import { DisplaySoundDetailsPage } from '../display-sound-details/display-sound-details';
-import { s } from '@angular/core/src/render3';
 
 const SOUND_URL = `${config.apiUrl}/api/sound`
 
@@ -21,6 +20,8 @@ export class SoundsMapPage {
   map: Map
   mapMarkers: MarkerClusterGroup[]
   sounds: Array<Sound>
+  searchVal: String
+  soundIcon
 
   /**
    * 
@@ -37,7 +38,7 @@ export class SoundsMapPage {
     const tileLayerUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
     const tileLayerOptions = {
-      maxZoom: 20
+      maxZoom: 25
     };
 
     this.mapOptions = {
@@ -51,6 +52,13 @@ export class SoundsMapPage {
     };
 
     this.mapMarkers = []
+
+    this.soundIcon = icon({
+      iconUrl: './assets/imgs/speaker.png',
+      iconSize: [30, 30], // size of the icon
+      iconAnchor: [15, 15], // point of the icon which will correspond to marker's location
+      popupAnchor: [15, 15] // point from which the popup should open relative to the iconAnchor
+    });
   }
 
   /**
@@ -96,7 +104,9 @@ export class SoundsMapPage {
     try {
       const position = await this.geolocation.getCurrentPosition();
       const coords = position.coords;
-      this.map.setView(latLng(coords.latitude, coords.longitude), 10)
+      //this.map.setView(latLng(coords.latitude, coords.longitude), 15)
+      let clusterMarker = markerClusterGroup()
+      this.mapMarkers.push(clusterMarker.addLayer(marker([coords.latitude, coords.longitude])))
 
       console.log(`User is at ${coords.longitude}, ${coords.latitude}`);
     } catch (err) {
@@ -144,9 +154,10 @@ export class SoundsMapPage {
    * @param sound 
    */
   createSoundMarker(sound: any) {
-    let soundMarker = marker([sound.coordinate.loc.x, sound.coordinate.loc.y])
+    let soundMarker = marker([sound.coordinate.loc.x, sound.coordinate.loc.y], { icon: this.soundIcon })
 
     soundMarker.on('click', (e) => {
+      this.searchVal = ''
       this.showSoundDetails(sound._id)
     })
 

@@ -7,10 +7,14 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
-  <ion-list>
-    <button (click)='goToDetails(sound._id)' ion-item *ngFor='let sound of sounds'>{{sound.description}}</button>
+  <ion-list no-lines>
+    <ion-item class="sound" ion-item *ngFor='let sound of sounds'>
+      <h2>{{sound.description.length
+        > 20 ? sound.description.substring(0,20)+"...":sound.description}}</h2>
+      <p>{{sound.quality}} • {{sound.coordinate.city ? sound.coordinate.city : "City unknown"}}</p>
+      <button ion-button clear item-end (click)='goToDetails(sound._id)'>View</button>
+    </ion-item>
   </ion-list>
 </ion-content>
-

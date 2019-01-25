@@ -14,48 +14,50 @@
 
 
 <ion-content padding>
-  <ion-grid>
+  <ion-card>
+
+    <ion-row>
+      <ion-col col>
+        <ion-badge class="categoryBadge" color="principal" (click)='goToCategory(category._id,category.name)' *ngFor="let category of sound.categories">{{
+          category.name }}</ion-badge>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-item>
+      <h2>{{user.name}}</h2>
+      <p>{{sound.quality}} • {{sound.coordinate && sound.coordinate.city ? sound.coordinate.city : "City unknown"}}</p>
+    </ion-item>
+
+    <ion-card-content>
+      <ion-card-content>
+        {{sound.description}}
+      </ion-card-content>
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col col-6>
+
+        <button ion-button block large icon-start (click)="playSound()">
+          <ion-icon name="play"></ion-icon>Play
+        </button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button block large icon-start (click)="stopSound()">
+          <ion-icon name="square"></ion-icon>Stop
+        </button>
+      </ion-col>
+    </ion-row>
+
     <ion-row>
       <ion-col col-6><button ion-button icon-only (click)="delete()" color="danger" *ngIf="auth.id==sound.user" full>
           <ion-icon name="trash"></ion-icon>
         </button></ion-col>
 
-      <ion-col col-6><button ion-button icon-start [navPush]="editSoundPage" [navParams]="{sound:sound}" *ngIf="auth.id==sound.user" full>
+      <ion-col col-6><button ion-button icon-start [navPush]="editSoundPage" [navParams]="{sound:sound}" *ngIf="auth.id==sound.user"
+          full>
           <ion-icon name="create"></ion-icon>Editer
         </button></ion-col>
     </ion-row>
-    
-    <ion-row>
-      <ion-col col-12>Description : {{sound.description}}</ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col col-12>Quality : {{sound.quality}}</ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col col-12>By : {{user.name}}</ion-col>
-    </ion-row>
-
-
-    <ion-row>
-      <ion-col col-12> Categories :
-        <ion-badge color="secondary" (click)='goToCategory(category._id,category.name)' *ngFor="let category of sound.categories">{{ category.name }}</ion-badge>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col col-12>
-
-        <button ion-button icon-start large block (click)="playSound()">
-          <ion-icon name="play"></ion-icon>Play
-        </button>
-
-        <button ion-button icon-start large block (click)="stopSound()" >
-            <ion-icon name="square"></ion-icon>Stop
-          </button>
-
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  </ion-card>
 </ion-content>

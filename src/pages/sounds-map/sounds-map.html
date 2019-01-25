@@ -1,15 +1,15 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>SoundsMap</ion-title>
+    <ion-title>Sounds Map</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  <div>
-    <ion-input type="text" placeholder="Search" (keyup)='search($event)'></ion-input>
-  </div>
+<ion-content>
   <div class='map' leaflet [leafletOptions]='mapOptions' (leafletMapReady)='onMapReady($event)' [leafletLayers]='mapMarkers'></div>
+  <div class='search'>
+    <input type="text" placeholder="Search" (keyup)='search($event)' [(ngModel)]="searchVal">
+  </div>
 </ion-content>
