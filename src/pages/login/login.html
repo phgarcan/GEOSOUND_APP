@@ -20,7 +20,8 @@
       <!-- Username input -->
       <ion-item>
         <ion-label floating>Email</ion-label>
-        <ion-input type='text' name='email' #usernameInput='ngModel' [(ngModel)]='authRequest.email' required></ion-input>
+        <ion-input type='text' name='email' #usernameInput='ngModel' [(ngModel)]='authRequest.email'
+                   required></ion-input>
       </ion-item>
 
       <!-- Error message displayed if the username is invalid -->
@@ -31,7 +32,8 @@
       <!-- Password input -->
       <ion-item>
         <ion-label floating>Password</ion-label>
-        <ion-input type='password' name='password' #passwordInput='ngModel' [(ngModel)]='authRequest.password' required></ion-input>
+        <ion-input type='password' name='password' #passwordInput='ngModel' [(ngModel)]='authRequest.password'
+                   required></ion-input>
       </ion-item>
 
       <!-- Error message displayed if the password is invalid -->
@@ -43,12 +45,13 @@
     </ion-list>
 
     <div padding>
-      <button  class="registerLink" [navPush]="registerPage" ion-button color="secondary" large block>Register</button>
+      <!-- Error message displayed if the login failed -->
+      <p *ngIf='loginError' ion-text color='danger'>Username or password is invalid.</p>
+
+      <button class="registerLink" [navPush]="registerPage" ion-button color="secondary" large block>Register</button>
       <!-- Submit button -->
       <button type='submit' [disabled]='form.invalid' ion-button block large>Log in</button>
 
-      <!-- Error message displayed if the login failed -->
-      <p *ngIf='loginError' ion-text color='danger'>Username or password is invalid.</p>
 
     </div>
   </form>

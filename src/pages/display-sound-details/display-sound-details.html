@@ -30,16 +30,17 @@
     </ion-row>
 
     <ion-row>
-      <ion-col col-12>Qualité : {{sound.quality}}</ion-col>
+      <ion-col col-12>Quality : {{sound.quality}}</ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col col-12>Par : {{user.name}}</ion-col>
+      <ion-col col-12>By : {{user.name}}</ion-col>
     </ion-row>
 
+
     <ion-row>
-      <ion-col col-12>
-        <ion-badge color="secondary" *ngFor="let category of sound.categories">{{ category.name }}</ion-badge>
+      <ion-col col-12> Categories :
+        <ion-badge color="secondary" (click)='goToCategory(category._id,category.name)' *ngFor="let category of sound.categories">{{ category.name }}</ion-badge>
       </ion-col>
     </ion-row>
 

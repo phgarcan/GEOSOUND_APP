@@ -1,9 +1,11 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { config } from '../../app/config';
-import { AuthProvider } from '../../providers/auth/auth';
-import { SoundsCategoryPage } from '../sounds-category/sounds-category';
+import {HttpClient} from '@angular/common/http';
+import {Component} from '@angular/core';
+import {NavController, NavParams} from 'ionic-angular';
+import {config} from '../../app/config';
+import {AuthProvider} from '../../providers/auth/auth';
+import {SoundsCategoryPage} from '../sounds-category/sounds-category';
+import {Storage} from "@ionic/storage";
+
 const CATEGORY_URL = `${config.apiUrl}/api/category`
 
 @Component({
@@ -34,7 +36,7 @@ export class BrowseSoundsPage {
   }
 
   goToCategory(id, categoryName) {
-    this.navCtrl.push(SoundsCategoryPage, { id, categoryName });
+    this.navCtrl.push(SoundsCategoryPage, {id, categoryName});
   }
 
 

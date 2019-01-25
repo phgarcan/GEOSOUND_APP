@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>BrowseSounds</ion-title>
+    <ion-title>Browse Sounds</ion-title>
 
     <!-- Logout button -->
     <ion-buttons end>
@@ -15,9 +15,9 @@
 
 
 <ion-content padding>
-  <h1>BrowseSounds</h1>
   <ion-list>
-    <button (click)='goToCategory(category.categoryID,category.categoryName)' ion-item *ngFor='let category of categoriesWithNbSounds'>{{category.categoryName}} : {{category.nbSound}}</button>
+    <button (click)='goToCategory(category.categoryID,category.categoryName)' ion-item
+            *ngFor='let category of categoriesWithNbSounds'>{{category.categoryName}} : {{category.nbSound}}</button>
   </ion-list>
 
 </ion-content>
