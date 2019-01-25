@@ -60,5 +60,4 @@ Touch ![Record](docimg/record.png) to start recording
 After recording the sound you'll be able to enter a
 description, chose categories, describe the sound quality and finally confirm the upload.
 
-[Upload form](docimg/uploadForm.png)
-
+![Upload form](docimg/uploadForm.png)
